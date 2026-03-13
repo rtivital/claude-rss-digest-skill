@@ -1,0 +1,136 @@
+{
+  "sources": [
+    {
+      "name": "Changelog News",
+      "url": "https://changelog.com/news/feed",
+      "category": "General Dev",
+      "enabled": true
+    },
+    {
+      "name": "Smashing Magazine",
+      "url": "https://www.smashingmagazine.com/feed/",
+      "category": "Frontend",
+      "enabled": true
+    },
+    {
+      "name": "This Week in React",
+      "url": "https://thisweekinreact.com/newsletter/rss.xml",
+      "category": "React",
+      "enabled": true
+    },
+    {
+      "name": "Node Weekly",
+      "url": "https://cprss.s3.amazonaws.com/nodeweekly.com.xml",
+      "category": "Node.js",
+      "enabled": true
+    },
+    {
+      "name": "Frontend Focus",
+      "url": "https://cprss.s3.amazonaws.com/frontendfoc.us.xml",
+      "category": "Frontend",
+      "enabled": true
+    },
+    {
+      "name": "JavaScript Weekly",
+      "url": "https://javascriptweekly.com/rss/",
+      "category": "JavaScript",
+      "enabled": true
+    },
+    {
+      "name": "React Status",
+      "url": "https://react.statuscode.com/rss/",
+      "category": "React",
+      "enabled": true
+    },
+    {
+      "name": "The Pragmatic Engineer",
+      "url": "https://blog.pragmaticengineer.com/rss/",
+      "category": "Engineering Management",
+      "enabled": true
+    },
+    {
+      "name": "Lara Hogan Blog",
+      "url": "https://larahogan.me/feed.xml",
+      "category": "Engineering Management",
+      "enabled": true
+    },
+    {
+      "name": "Stack Overflow Blog",
+      "url": "https://stackoverflow.blog/feed/",
+      "category": "General Dev",
+      "enabled": true
+    },
+    {
+      "name": "CSS-Tricks",
+      "url": "https://css-tricks.com/feed/",
+      "category": "Frontend",
+      "enabled": true
+    },
+    {
+      "name": "web.dev (Google)",
+      "url": "https://web.dev/feed.xml",
+      "category": "Frontend",
+      "enabled": true
+    },
+    {
+      "name": "Josh W. Comeau",
+      "url": "https://joshwcomeau.com/rss.xml",
+      "category": "Frontend/React",
+      "enabled": true
+    },
+    {
+      "name": "Robin Wieruch",
+      "url": "https://www.robinwieruch.de/index.xml",
+      "category": "React/Node",
+      "enabled": true
+    },
+    {
+      "name": "Node.js Blog (Official)",
+      "url": "https://nodejs.org/en/feed/blog.xml",
+      "category": "Node.js",
+      "enabled": true
+    },
+    {
+      "name": "OpenJS Foundation",
+      "url": "https://openjsf.org/blog/feed/",
+      "category": "JS Ecosystem",
+      "enabled": true
+    },
+    {
+      "name": "Anthropic News",
+      "url": "https://www.anthropic.com/news/rss",
+      "category": "AI Tooling",
+      "enabled": true
+    },
+    {
+      "name": "Simon Willison's Blog",
+      "url": "https://simonwillison.net/atom/everything/",
+      "category": "AI Tooling",
+      "enabled": true
+    },
+    {
+      "name": "ByteByteGo",
+      "url": "https://blog.bytebytego.com/feed",
+      "category": "System Design",
+      "enabled": true
+    },
+    {
+      "name": "Netflix Tech Blog",
+      "url": "https://netflixtechblog.com/feed",
+      "category": "Eng @ Scale",
+      "enabled": true
+    },
+    {
+      "name": "Cloudflare Blog",
+      "url": "https://blog.cloudflare.com/rss/",
+      "category": "Infra/Edge",
+      "enabled": true
+    },
+    {
+      "name": "Hacker News (Best)",
+      "url": "https://hnrss.org/best",
+      "category": "General Dev",
+      "enabled": true
+    }
+  ]
+}

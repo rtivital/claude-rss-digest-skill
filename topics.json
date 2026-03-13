@@ -1,0 +1,38 @@
+{
+  "profile": {
+    "roles": [
+      "Frontend Engineer",
+      "Node.js Backend Engineer",
+      "Engineering Manager",
+      "AI Tooling Enthusiast"
+    ],
+    "topics": {
+      "high_priority": [
+        "React, React 19, React Server Components",
+        "TypeScript, JavaScript runtimes (Bun, Deno, Node)",
+        "CSS, design systems, component architecture",
+        "Node.js internals, performance, streams",
+        "LLMs, Claude, AI coding tools (Cursor, Copilot)",
+        "Engineering management, team leadership, 1:1s",
+        "Agentic AI workflows and automation"
+      ],
+      "medium_priority": [
+        "Web performance, Core Web Vitals",
+        "Accessibility, progressive enhancement",
+        "Developer tooling: bundlers, linters, CI/CD",
+        "System design and distributed systems",
+        "Engineering culture, remote teams"
+      ],
+      "low_priority": [
+        "Mobile development",
+        "DevOps unless highly relevant to Node/JS",
+        "Non-JS languages"
+      ],
+      "exclude_if": [
+        "Job listings",
+        "Product advertisements without technical depth",
+        "Tutorial beginner content (assume senior-level reader)"
+      ]
+    }
+  }
+}
