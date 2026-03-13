@@ -49,28 +49,28 @@ Donald Knuth publicly acknowledged that Claude Opus 4.6 solved an open problem h
 ## React
 
 ### React Foundation Officially Launched
-**Source:** React Status · [Read →](https://react.statuscode.com/issues/464)
+**Source:** React Status · [Read →](https://react.dev/blog/2026/02/24/the-react-foundation)
 
 React, React Native, and JSX ownership has transferred from Meta to an independent foundation hosted by the Linux Foundation. The board includes Meta, Vercel, Microsoft, and others, with Seth Webster as executive director. A significant governance shift for the ecosystem.
 
 ---
 
 ### Cloudflare's Vinext: Vite-Powered Next.js Reimplementation
-**Source:** React Status · [Read →](https://react.statuscode.com/issues/464)
+**Source:** React Status · [Read →](https://blog.cloudflare.com/vinext/)
 
 Cloudflare built `vinext`, a Vite-based reimplementation of Next.js's API surface, letting existing Next.js apps run on Cloudflare Workers. Already in production with some customers, though not yet battle-tested at scale. The Next.js ecosystem fragmentation continues — worth watching for deployment flexibility.
 
 ---
 
 ### React Activity Component: Keeping State Alive
-**Source:** React Status · [Read →](https://react.statuscode.com/issues/465)
+**Source:** React Status · [Read →](https://www.mux.com/blog/react-is-changing-the-game-for-streaming-apps-with-the-activity-component)
 
 React 19.2's `Activity` component lets you preserve component state (like video playback position) across visibility changes. A practical look at the API and its use cases for any scenario where hidden components need to maintain their state without unmounting.
 
 ---
 
 ### Patreon's 7-Year TypeScript Migration: 11,000 Files
-**Source:** React Status · [Read →](https://react.statuscode.com/issues/465)
+**Source:** React Status · [Read →](https://www.patreon.com/posts/seven-years-to-typescript-152144830)
 
 An insight-heavy retrospective on migrating a million lines of React-based JavaScript to TypeScript at Patreon. Covers tooling, techniques for handling legacy React conventions, and lessons learned from a migration spanning seven years. Relevant to anyone managing large-scale TypeScript adoption.
 
@@ -86,28 +86,28 @@ A thorough comparison of component-driven forms (React Hook Form + Zod) vs. sche
 ## JavaScript & TypeScript
 
 ### TypeScript 6.0 Release Candidate
-**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/776)
+**Source:** JavaScript Weekly · [Read →](https://devblogs.microsoft.com/typescript/announcing-typescript-6-0-rc/)
 
 Primarily a stepping stone to the Go-powered native TypeScript 7.0 due later this year. The necessary `tsconfig.json` changes will prepare your projects for the future. Only minor tweaks since the beta.
 
 ---
 
 ### Oxfmt Beta: 30x Faster Than Prettier, 100% Compatible
-**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/774)
+**Source:** JavaScript Weekly · [Read →](https://oxc.rs/blog/2026-02-24-oxfmt-beta)
 
 The Rust-powered formatter from VoidZero (sister project of Oxlint) now supports embedded language formatting (JSX, YAML, HTML), Tailwind CSS class sorting, and import sorting. At 30x faster than Prettier and fully compatible, this is becoming a serious contender for your formatting toolchain.
 
 ---
 
 ### Bun v1.3.10: A Surprisingly Big Update
-**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/775)
+**Source:** JavaScript Weekly · [Read →](https://bun.com/blog/bun-v1.3.10)
 
 Major Bun release: completely rewritten REPL, `--compile --target=browser` for self-contained HTML files, full TC39 stage 3 ES decorators support, faster event loop, and barrel import optimization. Bun continues to close gaps with Node while innovating on DX.
 
 ---
 
 ### Solid 2.0 Beta: First-Class Async Reactivity
-**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/776)
+**Source:** JavaScript Weekly · [Read →](https://github.com/solidjs/solid/releases)
 
 Solid 2.0's reactive graph now natively suspends and resumes around Promises and async iterables. `<Suspense>` is retired in favor of `<Loading>`, and mutations get a first-class `action()` primitive with optimistic support. Ryan Carniato frames fine-grained reactivity as "the only sustainable model for an AI-agent world."
 
@@ -123,7 +123,7 @@ Starting with Node 27 (October 2026), Node.js moves to one major release per yea
 ---
 
 ### Matteo Collina's AI-Assisted Node Development Skills
-**Source:** Node Weekly · [Read →](https://nodeweekly.com/issues/615)
+**Source:** Node Weekly · [Read →](https://adventures.nodeland.dev)
 
 The Fastify creator published his personal coding skills/rules for AI agents — essentially making AI write Node code the way he does. Covers Node, Fastify, and documentation patterns. A practical template for creating your own AI coding skills based on hard-earned expertise.
 
@@ -137,7 +137,7 @@ James Snell proposes an alternative streams approach addressing "fundamental usa
 ---
 
 ### 76% of Node Repos Have Blocking I/O
-**Source:** Node Weekly · [Read →](https://nodeweekly.com/issues/615)
+**Source:** Node Weekly · [Read →](https://stackinsight.dev)
 
 An empirical study scanning 250 real Node repositories found 76% use blocking I/O calls (`execSync`, `existsSync`, `readFileSync`). Includes benchmarks quantifying the true performance cost. A good reference for performance reviews and code audits.
 
@@ -160,14 +160,14 @@ Josh Comeau revives sprite-based CSS animations using `object-fit`, `object-posi
 ---
 
 ### Chrome Moving to Two-Week Release Cycle
-**Source:** Frontend Focus · [Read →](https://frontendfoc.us/issues/731)
+**Source:** Frontend Focus · [Read →](https://developer.chrome.com/blog/chrome-two-week-release)
 
 Starting September 2026, Chrome shifts from four-week to two-week stable releases "to match the demands of a modern web." This means faster feature rollouts and more frequent breaking-change windows to account for in testing.
 
 ---
 
 ### CSS Animations as State Machines
-**Source:** Frontend Focus · [Read →](https://frontendfoc.us/issues/732)
+**Source:** Frontend Focus · [Read →](https://patrickbrosset.com/articles/2026-03-09-using-css-animations-as-state-machines-to-remember-focus-and-hover-states-with-css-only/)
 
 Patrick Brosset from Microsoft's Edge team discovered a technique to style elements based on whether they've ever been focused — using only CSS animations as implicit state machines. A clever approach that pushes the boundaries of what's possible without JavaScript.
 

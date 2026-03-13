@@ -39,6 +39,7 @@ These feeds already include the complete article text in the `summary` field (e.
 These are curated newsletter issues containing many linked articles (e.g., JavaScript Weekly, Node Weekly, Frontend Focus, This Week in React, React Status). **Do NOT use WebFetch** — the RSS summary already contains the newsletter content. Instead:
 - Read the summary and extract the 2-4 most notable individual items that match the user's topic priorities
 - Present each notable item as its own entry in the digest, attributing it to the newsletter source
+- **IMPORTANT — Direct article links:** The database `url` field for newsletters points to the newsletter issue page, NOT to the individual articles within it. When extracting notable items from newsletters, you MUST find the direct article URL from the newsletter summary text (it usually contains links like `https://nodeweekly.com/link/NNNNN/web` or direct URLs to blogs/repos). For redirect-style links (e.g., `javascriptweekly.com/link/...`), use WebFetch to resolve the redirect and get the final destination URL. Never use the newsletter issue URL as the link for individual articles — always link to the original article.
 
 ### Group C: Regular articles (everything else)
 Use WebFetch to retrieve the full article content. Use the prompt: "Extract the main article content. Ignore ads, navigation, sidebars, cookie banners, and promotional content. Return only the article text."
