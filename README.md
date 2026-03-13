@@ -1,4 +1,4 @@
-# AI Learning Explorer
+# Claude RSS digest skill
 
 A personalized dev digest generator powered by RSS feeds and [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Collects articles from 20+ sources, filters by keyword relevance, then uses Claude Code skills to analyze content and produce a curated Markdown digest tailored to your interests.
 
