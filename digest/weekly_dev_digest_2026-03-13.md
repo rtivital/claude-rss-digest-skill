@@ -1,96 +1,145 @@
-# Weekly Dev Digest — 2026-03-13
+# Dev Digest — 2026-03-13
 
-_75 articles collected · 14 selected as relevant_
+_149 articles collected · 24 selected as relevant_
 
-## AI Tooling
+## AI Tooling & Agentic Engineering
 
-### Shopify Liquid: 53% Faster Parse+Render via AI-Driven Autoresearch
-**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/13/liquid/#atom-everything)
+### Clinejection — Compromising Cline's Production Releases via Prompt Injection
+**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/6/clinejection/#atom-everything)
 
-Shopify CEO Tobias Lütke used a variant of Andrej Karpathy's "autoresearch" technique — an AI coding agent running ~120 autonomous experiments — to land 93 commits of micro-optimizations on the Liquid template engine. Key wins include replacing the StringScanner tokenizer with `String#byteindex` (12% parse time reduction alone) and pre-computing frozen strings for integers 0–999. A masterclass in pairing AI agents with a robust test suite (974 tests) and clear benchmarks to safely ship meaningful performance gains.
+A devastating attack chain against the Cline VS Code extension's GitHub repo: an attacker used prompt injection in an issue title to trick Cline's AI-powered issue triage (running Claude Code via GitHub Actions) into executing arbitrary commands. The injected title made Claude run `npm install` from a malicious branch with a preinstall script, giving full CI/CD compromise. A stark reminder that AI-powered automation on untrusted input is a live attack surface.
 
 ---
 
-### Matteo Collina's Personal Skills for AI-Assisted Node Development
-**Source:** Node Weekly · [Read →](https://nodeweekly.com/issues/615)
+### Agentic Manual Testing Patterns
+**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/guides/agentic-engineering-patterns/agentic-manual-testing/#atom-everything)
 
-Fastify creator Matteo Collina has published his approach to making AI code assistants write code _his way_. Rather than accepting default AI output, he crafted reusable "skills" encoding his hard-earned Node.js, Fastify, and documentation best practices. Simon Maple tested these skills against Anthropic's models and confirmed they meaningfully steer code quality. A practical blueprint for any senior engineer wanting AI to match their standards.
+From Simon's growing "Agentic Engineering Patterns" guide: unit tests alone don't prove code works as intended. He advocates having coding agents perform manual testing — running servers, checking UI elements, verifying end-to-end behavior — as a complement to automated tests. Practical patterns for getting more reliable output from AI coding workflows.
 
 ---
 
 ### Perhaps Not Boring Technology After All
 **Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/9/not-so-boring/#atom-everything)
 
-Simon Willison challenges the fear that LLMs push developers toward mainstream-only technology choices. With modern models' large context windows, agents can consume documentation for novel or private tools on-the-fly and produce excellent results — even for codebases using libraries too new or obscure to appear in training data. The emergence of vendor-specific "Skills" mechanisms further supports freedom to choose unconventional stacks.
+Counter to the worry that LLMs push everyone toward the most common tech stacks, Simon finds that modern coding agents with long context windows work excellently with novel or private tools — just prompt them to read the docs first. This changes the calculus of the "choose boring technology" heuristic when agents can quickly become competent with unfamiliar libraries.
 
 ---
 
-### Codex for Open Source
-**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/7/codex-for-open-source/#atom-everything)
+### Shopify/Liquid: 53% Faster via AI-Driven Autoresearch
+**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/13/liquid/#atom-everything)
 
-Following Anthropic's free Claude Max offer for open-source maintainers, OpenAI launched a comparable program: six months of ChatGPT Pro with Codex for core maintainers of popular projects. The AI tooling arms race for developer mindshare is heating up, and open-source maintainers are the direct beneficiaries.
-
----
-
-### CodeSpeak: Kotlin Creator's New Spec-Based Language for LLMs
-**Source:** Hacker News · [Read →](https://codespeak.dev/)
-
-The creator of Kotlin launched CodeSpeak, a language where developers maintain plain-text specifications that LLMs compile into Python, Go, JavaScript, or TypeScript. Real-world case studies show 6–10x code reduction. Currently in alpha, it represents an emerging paradigm where you maintain specs, not code — worth watching as this category matures.
+Shopify CEO Tobias Lütke used a variant of Karpathy's "autoresearch" pattern — having a coding agent run ~120 automated experiments — to find performance micro-optimizations in Liquid's Ruby template engine. The result: 53% faster parse+render and 61% fewer allocations across 93 commits. A compelling real-world example of agentic AI for systematic performance optimization.
 
 ---
 
-### The AI Split Among Developers
-**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/12/les-orchard/#atom-everything)
+### GPT-5.4 Released
+**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/5/introducing-gpt54/#atom-everything)
 
-Les Orchard articulates a divide AI-assisted coding is making visible: developers who love the craft of writing code versus those focused on getting things built. Before AI, both camps used identical workflows and were indistinguishable. Now there's a fork in the road, and motivations that were always there are surfacing. A thoughtful lens for engineering managers navigating team dynamics around AI adoption.
+OpenAI's latest: `gpt-5.4` and `gpt-5.4-pro` with 1M token context, August 2025 knowledge cutoff. Beats the coding-specialist GPT-5.3-Codex on all benchmarks. Notable focus on spreadsheet/document modeling tasks (87.3% vs 68.4% for GPT-5.2). The competitive landscape between Claude and GPT continues to tighten.
+
+---
+
+### Donald Knuth Praises Claude Opus 4.6
+**Source:** Simon Willison's Blog · [Read →](https://simonwillison.net/2026/Mar/3/donald-knuth/#atom-everything)
+
+Donald Knuth publicly acknowledged that Claude Opus 4.6 solved an open problem he'd been working on for weeks, calling it a "dramatic advance in automatic deduction and creative problem solving." A milestone moment for AI-assisted research from one of computer science's most respected voices.
+
+---
+
+## React
+
+### React Foundation Officially Launched
+**Source:** React Status · [Read →](https://react.statuscode.com/issues/464)
+
+React, React Native, and JSX ownership has transferred from Meta to an independent foundation hosted by the Linux Foundation. The board includes Meta, Vercel, Microsoft, and others, with Seth Webster as executive director. A significant governance shift for the ecosystem.
+
+---
+
+### Cloudflare's Vinext: Vite-Powered Next.js Reimplementation
+**Source:** React Status · [Read →](https://react.statuscode.com/issues/464)
+
+Cloudflare built `vinext`, a Vite-based reimplementation of Next.js's API surface, letting existing Next.js apps run on Cloudflare Workers. Already in production with some customers, though not yet battle-tested at scale. The Next.js ecosystem fragmentation continues — worth watching for deployment flexibility.
+
+---
+
+### React Activity Component: Keeping State Alive
+**Source:** React Status · [Read →](https://react.statuscode.com/issues/465)
+
+React 19.2's `Activity` component lets you preserve component state (like video playback position) across visibility changes. A practical look at the API and its use cases for any scenario where hidden components need to maintain their state without unmounting.
+
+---
+
+### Patreon's 7-Year TypeScript Migration: 11,000 Files
+**Source:** React Status · [Read →](https://react.statuscode.com/issues/465)
+
+An insight-heavy retrospective on migrating a million lines of React-based JavaScript to TypeScript at Patreon. Covers tooling, techniques for handling legacy React conventions, and lessons learned from a migration spanning seven years. Relevant to anyone managing large-scale TypeScript adoption.
+
+---
+
+### Building Dynamic Forms in React and Next.js
+**Source:** Smashing Magazine · [Read →](https://smashingmagazine.com/2026/03/building-dynamic-forms-react-next-js/)
+
+A thorough comparison of component-driven forms (React Hook Form + Zod) vs. schema-driven forms (SurveyJS). The key insight: when forms accumulate complex business logic — visibility rules, conditional requirements, derived calculations — a JSON schema approach makes behavior inspectable and changeable without code deploys. Good decision framework for choosing between the two.
+
+---
+
+## JavaScript & TypeScript
+
+### TypeScript 6.0 Release Candidate
+**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/776)
+
+Primarily a stepping stone to the Go-powered native TypeScript 7.0 due later this year. The necessary `tsconfig.json` changes will prepare your projects for the future. Only minor tweaks since the beta.
+
+---
+
+### Oxfmt Beta: 30x Faster Than Prettier, 100% Compatible
+**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/774)
+
+The Rust-powered formatter from VoidZero (sister project of Oxlint) now supports embedded language formatting (JSX, YAML, HTML), Tailwind CSS class sorting, and import sorting. At 30x faster than Prettier and fully compatible, this is becoming a serious contender for your formatting toolchain.
+
+---
+
+### Bun v1.3.10: A Surprisingly Big Update
+**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/775)
+
+Major Bun release: completely rewritten REPL, `--compile --target=browser` for self-contained HTML files, full TC39 stage 3 ES decorators support, faster event loop, and barrel import optimization. Bun continues to close gaps with Node while innovating on DX.
+
+---
+
+### Solid 2.0 Beta: First-Class Async Reactivity
+**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/776)
+
+Solid 2.0's reactive graph now natively suspends and resumes around Promises and async iterables. `<Suspense>` is retired in favor of `<Loading>`, and mutations get a first-class `action()` primitive with optimistic support. Ryan Carniato frames fine-grained reactivity as "the only sustainable model for an AI-agent world."
 
 ---
 
 ## Node.js
 
-### Evolving the Node.js Release Schedule: One Major Per Year
+### Evolving the Node.js Release Schedule
 **Source:** Node.js Blog · [Read →](https://nodejs.org/en/blog/announcements/evolving-the-nodejs-release-schedule)
 
-Starting with Node 27 (April 2027), Node.js is shifting from two major releases per year to one. Every release becomes LTS (no more odd/even distinction), version numbers align with the calendar year, and a new Alpha phase (Oct–Mar) allows semver-major changes with proper testing. The move reduces maintainer burden while keeping the 30-month LTS support window intact. Plan your upgrade cycles accordingly.
+Starting with Node 27 (October 2026), Node.js moves to one major release per year. Every release becomes LTS (no more odd/even distinction), with a new alpha channel for early testing. Version numbers will align with calendar years (Node 28 LTS in 2028). Driven by data showing odd releases see minimal adoption and volunteer maintainers are stretched thin supporting 4-5 concurrent lines.
 
 ---
 
-## JavaScript
+### Matteo Collina's AI-Assisted Node Development Skills
+**Source:** Node Weekly · [Read →](https://nodeweekly.com/issues/615)
 
-### TypeScript 6.0 Release Candidate
-**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/776)
-
-TypeScript 6.0 RC is out, functioning primarily as a transitional step toward the Go-powered TypeScript 7.0 arriving later in 2026. The RC includes necessary `tsconfig.json` changes to prepare for the compiler rewrite. Minimal breaking changes from beta, but worth reviewing the config updates now before 7.0 lands.
+The Fastify creator published his personal coding skills/rules for AI agents — essentially making AI write Node code the way he does. Covers Node, Fastify, and documentation patterns. A practical template for creating your own AI coding skills based on hard-earned expertise.
 
 ---
 
-### Solid 2.0 Beta: First-Class Async and the End of Suspense
-**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/776)
+### A Better Streams API for JavaScript
+**Source:** Node Weekly · [Read →](https://nodeweekly.com/issues/614)
 
-Solid 2.0's first beta introduces first-class async support where reactive computations can return Promises or async iterables, with the graph suspending and resuming natively. `<Suspense>` is retired in favor of `<Loading>`, and mutations get a first-class `action()` primitive with optimistic support. Substantial breaking changes, but Ryan Carniato frames fine-grained reactivity as the sustainable model for an AI-agent world.
-
----
-
-### Temporal API Advances to Stage 4
-**Source:** JavaScript Weekly · [Read →](https://javascriptweekly.com/issues/776)
-
-TC39's 113th meeting prioritized advancing the Temporal API to Stage 4, meaning it's now approved for inclusion in the ECMAScript specification. After years of development, JavaScript is finally getting proper date/time handling built into the language. The beginning of the end for Moment.js and date-fns workarounds.
+James Snell proposes an alternative streams approach addressing "fundamental usability and performance issues" with the current standard. He's created a PR for Node.js demonstrating how the new approach can coexist with the existing implementation. Worth watching if you work with Node streams.
 
 ---
 
-## React & Frameworks
+### 76% of Node Repos Have Blocking I/O
+**Source:** Node Weekly · [Read →](https://nodeweekly.com/issues/615)
 
-### React Compiler Being Ported to Rust
-**Source:** This Week in React · [Read →](https://thisweekinreact.com/newsletter/272)
-
-The React Compiler is being rewritten in Rust for performance gains. Combined with Astro 6.0's launch (redesigned dev server on Vite's Environment API, built-in Fonts API, stable CSP support) and shadcn/cli 4.0 adding Skills and monorepo support, the React ecosystem is seeing significant infrastructure evolution this week.
-
----
-
-### Patreon's TypeScript Migration: 11,000 Files, 1M+ Lines
-**Source:** This Week in React · [Read →](https://thisweekinreact.com/newsletter/272)
-
-Patreon documented their migration of over 1 million lines of JavaScript across 11,000 files to TypeScript. For engineering managers planning similar migrations or evaluating the investment, this is a valuable case study in executing large-scale type adoption at a real company.
+An empirical study scanning 250 real Node repositories found 76% use blocking I/O calls (`execSync`, `existsSync`, `readFileSync`). Includes benchmarks quantifying the true performance cost. A good reference for performance reviews and code audits.
 
 ---
 
@@ -99,11 +148,36 @@ Patreon documented their migration of over 1 million lines of JavaScript across 
 ### CSS `corner-shape`: Beyond `border-radius`
 **Source:** Smashing Magazine · [Read →](https://smashingmagazine.com/2026/03/beyond-border-radius-css-corner-shape-property-ui/)
 
-The new `corner-shape` property finally lets you create beveled, scooped, squircle (Apple-style), and notched corners without `clip-path` or SVG mask workarounds — and it works correctly with borders, shadows, and backgrounds. Currently Chrome 139+ only, but the progressive enhancement path is straightforward: design with `border-radius`, enhance with `@supports`.
+The new `corner-shape` property finally brings squircle, bevel, scoop, and notch corners to CSS without SVG masks or clip-path hacks. Available in Chrome 139+ now. The article demonstrates practical UI patterns — product badges, pricing cards, component libraries — with a progressive enhancement approach for cross-browser support.
 
 ---
 
-### Dynamic Forms in React: When UI Becomes a Rule Engine
-**Source:** Smashing Magazine · [Read →](https://smashingmagazine.com/2026/03/building-dynamic-forms-react-next-js/)
+### Sprites on the Web
+**Source:** Josh W. Comeau · [Read →](https://www.joshwcomeau.com/animation/sprites/)
 
-A senior-level comparison of component-driven forms (React Hook Form + Zod) versus schema-driven forms (JSON config) for complex business logic. The key insight: when your form accumulates visibility rules, derived values, and conditional requirements, it's no longer UI — it's a decision process, and the wrong abstraction becomes painful. Includes a practical decision matrix for choosing between approaches.
+Josh Comeau revives sprite-based CSS animations using `object-fit`, `object-position`, and the `steps()` timing function. Compared to animated GIFs, sprites offer adjustable speed, pause/play control, and better compression with modern formats like AVIF. Best suited for retro-styled or repeating character animations.
+
+---
+
+### Chrome Moving to Two-Week Release Cycle
+**Source:** Frontend Focus · [Read →](https://frontendfoc.us/issues/731)
+
+Starting September 2026, Chrome shifts from four-week to two-week stable releases "to match the demands of a modern web." This means faster feature rollouts and more frequent breaking-change windows to account for in testing.
+
+---
+
+### CSS Animations as State Machines
+**Source:** Frontend Focus · [Read →](https://frontendfoc.us/issues/732)
+
+Patrick Brosset from Microsoft's Edge team discovered a technique to style elements based on whether they've ever been focused — using only CSS animations as implicit state machines. A clever approach that pushes the boundaries of what's possible without JavaScript.
+
+---
+
+## System Design & LLMs
+
+### The Architecture Behind Open-Source LLMs
+**Source:** ByteByteGo · [Read →](https://blog.bytebytego.com/p/the-architecture-behind-open-source)
+
+A solid overview of the engineering decisions defining frontier open-source models. All major 2025-2026 models use Mixture-of-Experts (activating ~32B of a trillion parameters per token). The article covers three attention strategies (GQA, MLA, Sparse), varying sparsity philosophies, and how post-training (RL, distillation, synthetic data) has become the key differentiator. Useful mental model for evaluating which open-source LLM fits your use case.
+
+---
