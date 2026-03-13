@@ -29,6 +29,7 @@ cd $PROJECT_ROOT && sqlite3 -json db/articles.db "SELECT id, title, source, cate
 ## Step 4: Fetch and analyze each article
 
 For each article returned from the database:
+
 1. Use WebFetch to retrieve the full article content from its URL. Use the prompt: "Extract the main article content. Ignore ads, navigation, sidebars, cookie banners, and promotional content. Return only the article text."
 2. Based on the full content AND the user's topics.json profile, decide if this article is genuinely interesting to the user. Skip articles that are:
    - Ads or sponsored content disguised as articles
@@ -42,7 +43,7 @@ Process articles in parallel where possible using the Agent tool — launch mult
 
 ## Step 5: Present the digest
 
-Output a well-formatted Markdown digest to the user with this structure:
+Output a well-formatted Markdown digest to `./digest/weekly_dev_digest_{today's date}.md` with this structure:
 
 ```
 # Weekly Dev Digest — {today's date}
