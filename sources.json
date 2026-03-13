@@ -16,30 +16,35 @@
       "name": "This Week in React",
       "url": "https://thisweekinreact.com/newsletter/rss.xml",
       "category": "React",
+      "type": "newsletter",
       "enabled": true
     },
     {
       "name": "Node Weekly",
       "url": "https://cprss.s3.amazonaws.com/nodeweekly.com.xml",
       "category": "Node.js",
+      "type": "newsletter",
       "enabled": true
     },
     {
       "name": "Frontend Focus",
       "url": "https://cprss.s3.amazonaws.com/frontendfoc.us.xml",
       "category": "Frontend",
+      "type": "newsletter",
       "enabled": true
     },
     {
       "name": "JavaScript Weekly",
       "url": "https://javascriptweekly.com/rss/",
       "category": "JavaScript",
+      "type": "newsletter",
       "enabled": true
     },
     {
       "name": "React Status",
       "url": "https://react.statuscode.com/rss/",
       "category": "React",
+      "type": "newsletter",
       "enabled": true
     },
     {
@@ -64,7 +69,8 @@
       "name": "CSS-Tricks",
       "url": "https://css-tricks.com/feed/",
       "category": "Frontend",
-      "enabled": true
+      "enabled": false,
+      "_note": "Feed returns 415 Unsupported Media Type as of 2026-03"
     },
     {
       "name": "web.dev (Google)",
@@ -94,18 +100,21 @@
       "name": "OpenJS Foundation",
       "url": "https://openjsf.org/blog/feed/",
       "category": "JS Ecosystem",
-      "enabled": true
+      "enabled": false,
+      "_note": "Site migrated to Next.js, RSS feed removed as of 2026-03"
     },
     {
       "name": "Anthropic News",
       "url": "https://www.anthropic.com/news/rss",
       "category": "AI Tooling",
-      "enabled": true
+      "enabled": false,
+      "_note": "RSS endpoint returns 404 as of 2026-03"
     },
     {
       "name": "Simon Willison's Blog",
       "url": "https://simonwillison.net/atom/everything/",
       "category": "AI Tooling",
+      "full_content_rss": true,
       "enabled": true
     },
     {

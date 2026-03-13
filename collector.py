@@ -25,12 +25,27 @@ CREATE TABLE IF NOT EXISTS articles (
     title TEXT NOT NULL,
     source TEXT NOT NULL,
     category TEXT,
+    source_type TEXT DEFAULT 'article',
+    full_content_rss INTEGER DEFAULT 0,
     published TEXT,
     summary TEXT,
     status TEXT DEFAULT 'new',
     created_at TEXT DEFAULT (datetime('now'))
 );
 """
+
+CREATE_FEED_HEALTH_SQL = """
+CREATE TABLE IF NOT EXISTS feed_health (
+    name TEXT PRIMARY KEY,
+    url TEXT NOT NULL,
+    consecutive_failures INTEGER DEFAULT 0,
+    last_error TEXT,
+    last_success TEXT,
+    auto_disabled INTEGER DEFAULT 0
+);
+"""
+
+AUTO_DISABLE_THRESHOLD = 3
 
 
 class HTMLStripper(HTMLParser):
@@ -60,6 +75,13 @@ def init_db():
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.execute(CREATE_TABLE_SQL)
+    conn.execute(CREATE_FEED_HEALTH_SQL)
+    # Migrate existing databases: add new columns if missing
+    existing_cols = {row[1] for row in conn.execute("PRAGMA table_info(articles)").fetchall()}
+    if "source_type" not in existing_cols:
+        conn.execute("ALTER TABLE articles ADD COLUMN source_type TEXT DEFAULT 'article'")
+    if "full_content_rss" not in existing_cols:
+        conn.execute("ALTER TABLE articles ADD COLUMN full_content_rss INTEGER DEFAULT 0")
     conn.commit()
     return conn
 
@@ -74,9 +96,67 @@ def url_hash(url):
     return hashlib.sha256(url.encode()).hexdigest()
 
 
+def is_feed_auto_disabled(conn, source_name):
+    """Check if a feed has been auto-disabled due to repeated failures."""
+    row = conn.execute(
+        "SELECT auto_disabled FROM feed_health WHERE name = ?", (source_name,)
+    ).fetchone()
+    return row and row[0] == 1
+
+
+def record_feed_success(conn, source):
+    """Record a successful feed fetch, resetting failure count."""
+    conn.execute(
+        """INSERT INTO feed_health (name, url, consecutive_failures, last_success, auto_disabled)
+           VALUES (?, ?, 0, datetime('now'), 0)
+           ON CONFLICT(name) DO UPDATE SET
+               consecutive_failures = 0,
+               last_error = NULL,
+               last_success = datetime('now'),
+               auto_disabled = 0""",
+        (source["name"], source["url"]),
+    )
+
+
+def record_feed_failure(conn, source, error_msg):
+    """Record a feed failure and auto-disable if threshold exceeded."""
+    conn.execute(
+        """INSERT INTO feed_health (name, url, consecutive_failures, last_error)
+           VALUES (?, ?, 1, ?)
+           ON CONFLICT(name) DO UPDATE SET
+               consecutive_failures = consecutive_failures + 1,
+               last_error = ?""",
+        (source["name"], source["url"], error_msg, error_msg),
+    )
+    row = conn.execute(
+        "SELECT consecutive_failures FROM feed_health WHERE name = ?",
+        (source["name"],),
+    ).fetchone()
+    if row and row[0] >= AUTO_DISABLE_THRESHOLD:
+        conn.execute(
+            "UPDATE feed_health SET auto_disabled = 1 WHERE name = ?",
+            (source["name"],),
+        )
+        print(
+            f"  [AUTO-DISABLED] {source['name']}: {row[0]} consecutive failures",
+            file=sys.stderr,
+        )
+
+
+def get_summary_limit(source):
+    """Newsletter sources get a higher summary truncation limit."""
+    if source.get("type") == "newsletter":
+        return 2000
+    return 1000
+
+
 def fetch_feed(source, cutoff_date):
     """Fetch a single feed and return list of article dicts."""
     articles = []
+    summary_limit = get_summary_limit(source)
+    source_type = source.get("type", "article")
+    full_content = 1 if source.get("full_content_rss", False) else 0
+
     feed = feedparser.parse(
         source["url"],
         agent="RSS-Learning-Digest/1.0 (personal learning tool)",
@@ -114,9 +194,9 @@ def fetch_feed(source, cutoff_date):
         # Get summary
         summary_raw = entry.get("summary", "") or entry.get("description", "")
         summary = strip_html(summary_raw)
-        # Truncate very long summaries
-        if len(summary) > 1000:
-            summary = summary[:1000] + "..."
+        # Truncate based on source type
+        if len(summary) > summary_limit:
+            summary = summary[:summary_limit] + "..."
 
         articles.append(
             {
@@ -125,6 +205,8 @@ def fetch_feed(source, cutoff_date):
                 "title": title,
                 "source": source["name"],
                 "category": source.get("category", ""),
+                "source_type": source_type,
+                "full_content_rss": full_content,
                 "published": published.isoformat() if published else None,
                 "summary": summary,
             }
@@ -145,22 +227,31 @@ def main():
     total_added = 0
     total_dupes = 0
     feeds_fetched = 0
+    feeds_skipped = 0
 
     for source in sources:
+        if is_feed_auto_disabled(conn, source["name"]):
+            print(f"  [SKIPPED] {source['name']}: auto-disabled due to repeated failures", file=sys.stderr)
+            feeds_skipped += 1
+            continue
+
         try:
             articles = fetch_feed(source, cutoff_date)
             feeds_fetched += 1
+            record_feed_success(conn, source)
             for article in articles:
                 try:
                     conn.execute(
-                        """INSERT INTO articles (url_hash, url, title, source, category, published, summary)
-                           VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                        """INSERT INTO articles (url_hash, url, title, source, category, source_type, full_content_rss, published, summary)
+                           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                         (
                             article["url_hash"],
                             article["url"],
                             article["title"],
                             article["source"],
                             article["category"],
+                            article["source_type"],
+                            article["full_content_rss"],
                             article["published"],
                             article["summary"],
                         ),
@@ -171,9 +262,14 @@ def main():
             conn.commit()
         except Exception as e:
             print(f"  [ERROR] {source['name']}: {e}", file=sys.stderr)
+            record_feed_failure(conn, source, str(e))
+            conn.commit()
 
     conn.close()
-    print(f"{feeds_fetched} feeds fetched, {total_added} articles added, {total_dupes} duplicates skipped")
+    msg = f"{feeds_fetched} feeds fetched, {total_added} articles added, {total_dupes} duplicates skipped"
+    if feeds_skipped:
+        msg += f", {feeds_skipped} feeds auto-disabled"
+    print(msg)
 
 
 if __name__ == "__main__":
